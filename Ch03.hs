@@ -40,7 +40,7 @@ verifyPalindrome (x:xs)
 
 main :: IO ()
 main = do
-    print $ Talk "Conor Hoekstra" "Algorithm Intution"
+    print $ Talk "Conor Hoekstra" "Algorithm Intuition"
     let l = Cons 3 (Cons 2 (Cons 1 (Cons 0 Nil)))
     print $ fromList l
     print $ len [1..10]
