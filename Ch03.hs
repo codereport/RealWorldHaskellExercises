@@ -31,12 +31,19 @@ createPalindrome :: [a] -> [a]
 createPalindrome xs = xs ++ reverse xs
 
 -- Exercise 5
+    -- Solution 1
 verifyPalindrome :: Eq a => [a] -> Bool
 verifyPalindrome []  = True
 verifyPalindrome [_] = True
 verifyPalindrome (x:xs) 
     | x == last xs = verifyPalindrome (init xs)
     | otherwise    = False
+
+    -- Solution 2
+verifyPalindrome2 :: Eq a => [a] -> Bool
+verifyPalindrome2 xs = (take n xs) == reverse (drop (n + m) xs)
+    where n = div (length xs) 2
+          m = if odd (length xs) then 1 else 0
 
 main :: IO ()
 main = do
