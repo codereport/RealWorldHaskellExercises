@@ -70,6 +70,37 @@ takewhile' p (x:xs)
 takewhile'' :: (a -> Bool) -> [a] -> [a]
 takewhile'' p = foldr (\b a -> if p b then b : a else []) []
 
+-- SIDE-BY-SIDE COMPARISON
+--
+
+takewhile_foldl :: (a -> Bool) -> [a] -> [a]
+takewhile_foldl p = foldl (\a b -> if p b then a ++ [b] else a) []
+
+takewhile_foldr :: (a -> Bool) -> [a] -> [a]
+takewhile_foldr p = foldr (\b a -> if p b then b : a else []) []
+
+---
+---
+
+-- Exercise 8 & 9
+groupBy' :: (a -> a -> Bool) -> [a] -> [[a]]
+groupBy' op = foldr step [[]]
+    where step e ([]:t) = [e] : t
+          step e acc 
+            | op e (head (head acc)) = (e : head acc) : (tail acc)
+            | otherwise = [e] : acc
+
+-- Exercise 10
+any' :: (a -> Bool) -> [a] -> Bool
+any' p = foldl (\a b -> a || p b) False
+
+-- cycle not possible
+
+words' :: String -> [String]
+words' = foldr (\b a -> if b == ' ' 
+                        then [[]] ++ a 
+                        else (b : head a) : tail a) [[]]
+
 main :: IO ()
 main = do
     print $ safeHead ([] :: [Int])
@@ -92,3 +123,9 @@ main = do
     print $ takewhile' (<5) []
     print $ takewhile'' (<5) [1..10]
     print $ takewhile'' (<5) []
+    print $ takewhile_foldl (<5) [1..10]
+    print $ takewhile_foldr (<5) [1..10]
+    print $ groupBy' (==) [1,1,2,3,3,4,4]
+    print $ any' odd [1,2,3]
+    print $ any' odd [2,4,6]
+    print $ words' "I am Thor, God of Asgard."
