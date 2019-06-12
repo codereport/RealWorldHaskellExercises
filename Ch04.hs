@@ -54,7 +54,21 @@ asInt_fold2 s@(sign:num)
               nondigit = any (not . isDigit) num
               overflow = length s > length (show (maxBound :: Int))
 
--- Exercise 4 ... skipped
+-- Exercise 4
+
+type ErrorMessage = String
+
+asInt_fold3 :: String -> Either ErrorMessage Int
+asInt_fold3 s@(sign:num)
+    | null s      = Right 0
+    | s == "-"    = Right 0
+    | nondigit    = Left "Not all characters are digits"
+    | overflow    = Left "String value is to large"
+    | sign == '-' = Right (-1 * stoi num)
+    | otherwise   = Right (stoi s)
+        where stoi s = foldl (\a b -> a * 10 + digitToInt b) 0 s
+              nondigit = any (not . isDigit) num
+              overflow = length s > length (show (maxBound :: Int))
 
 -- Exercise 5 & 6
 concat' :: [[a]] -> [a]
