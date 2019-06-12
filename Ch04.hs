@@ -55,7 +55,6 @@ asInt_fold2 s@(sign:num)
               overflow = length s > length (show (maxBound :: Int))
 
 -- Exercise 4
-
 type ErrorMessage = String
 
 asInt_fold3 :: String -> Either ErrorMessage Int
